@@ -7,7 +7,7 @@
         <div class="columns">
             <div class="column is-one-quarter"><%-- to push the login --%></div>
             <div class="column">
-                <form action="/loing" method="post">
+                <form action="/login" method="post">
                     <div class="field">
                         <p class="control has-icons-left has-icons-right">
                             <input class="input" required="true" type="email" placeholder="Email">
@@ -29,9 +29,12 @@
                     </div>
                     <div class="field">
                         <p class="control">
-                            <button class="button is-success">
+                            <button type="submit" class="button is-success">
                                 Login
                             </button>
+                            <a class="button is-link is-pulled-right" href="/signup">
+                                Create account
+                            </a>
                         </p>
                     </div>
                 </form>
