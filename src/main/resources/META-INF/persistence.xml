@@ -2,13 +2,7 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="com.tada_tada_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>com.tada.umgproject.Card</class>
-    <class>com.tada.umgproject.OrderList</class>
-    <class>com.tada.umgproject.Order1</class>
-    <class>com.tada.umgproject.OrderStatus</class>
-    <class>com.tada.umgproject.Category</class>
-    <class>com.tada.umgproject.Product</class>
-    <class>com.tada.umgproject.User</class>
+    <class>com.tada.beans.User</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/tada?zeroDateTimeBehavior=convertToNull"/>

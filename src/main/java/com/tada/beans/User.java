@@ -1,6 +1,7 @@
 
-package com.tada.umgproject;
+package com.tada.beans;
 
+import com.tada.DBConnection;
 import java.sql.ResultSet;
 
 public class User {

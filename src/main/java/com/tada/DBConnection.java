@@ -1,4 +1,4 @@
-package com.tada.umgproject;
+package com.tada;
 
 import java.sql.Connection;
 import java.sql.Statement;
