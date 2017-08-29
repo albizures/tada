@@ -34,6 +34,7 @@ public class DBConnection {
             return null;
         }
     }
+    
     public static ResultSet exec (String query) {
         try {
             Statement stmt = getConnection().createStatement();
