@@ -19,6 +19,9 @@ public class Product {
     private String description;
     private int stock;
 
+    public Product() {
+    }
+    
     public Product(int idProduct, String name, BigDecimal price, int idCategory, String description, int stock) {
         this.idProduct = idProduct;
         this.name = name;
