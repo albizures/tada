@@ -1,40 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.tada.dao;
 
-import com.tada.DBConnection;
-import com.tada.beans.Category;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
-/**
- *
- * @author erick
- */
-public class CategoryDAO {
+
+import com.tada.DBConnection;
+import com.tada.PropertiesUtil;
+import com.tada.beans.Category;
+
+
+public class CategoryDAO implements DAOInterface<Category> {
+    static Properties scripts = PropertiesUtil.getProperties("sql/category.properties");
     
+    @Override
     public int insert(Category category){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_insert = "INSERT INTO category " +
-                            "(name) " +
-                            "VALUES(?)";
+        String sql_insert = scripts.getProperty("insert");
+        
+        System.out.println(sql_insert);
+        System.out.println(category.toString());
+        
         int result = 0;
         try {
-            result = qr.update(sql_insert, category.getName());
+            result = qr.update(conn,sql_insert, category.getName());
         } catch (SQLException ex) {
-            ex.getMessage();
-        } finally {
-            DbUtils.closeQuietly(conn);
+            System.out.println(ex.getMessage());
         }
         return result;
     }
@@ -42,9 +42,8 @@ public class CategoryDAO {
     public int update(Category category){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_update = "UPDATE tada.category " +
-                            "SET name=? " +
-                            "WHERE id_category=?";
+        String sql_update = scripts.getProperty("update");
+
         int result = 0;
         try {
             result = qr.update(sql_update,
@@ -52,59 +51,53 @@ public class CategoryDAO {
                     category.getIdCategory());
         } catch (SQLException ex) {
             ex.getMessage();
-        } finally {
-            DbUtils.closeQuietly(conn);
         }
         return result;
     }
     
+    @Override
     public int delete(int id){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_delete = "DELETE FROM  category " +
-                            "WHERE id_category=?";
+        String sql_delete = scripts.getProperty("delete");
         int result = 0;
         try {
             result = qr.update(sql_delete,id);
         } catch (SQLException ex){
             ex.getMessage();
-        } finally {
-            DbUtils.closeQuietly(conn);
         }
         return result;
     }
     
-    public List<Category> list(){
+    @Override
+    public List<Category> findAll(){
+        
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_select = "SELECT id_category, name " +
-                            "FROM category";
+        String sql_select = scripts.getProperty("select");
+
+        
         ResultSetHandler<List<Category>> rlh = new BeanListHandler<>(Category.class);
         List<Category> list = new ArrayList<>();
         try {
-            list = qr.query(sql_select, rlh);
+            list = qr.query(conn, sql_select, rlh);
         } catch (SQLException ex){
-            ex.getMessage();
-        } finally {
-            DbUtils.closeQuietly(conn);
+            System.out.println(ex.getMessage());
         }
         return list;
     }
     
-    public Category get(int id){
+    @Override
+    public Category findById(int id){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_select = "SELECT id_category, name " +
-                            "FROM category " +
-                            "WHERE id_category=?";
+        String sql_select = scripts.getProperty("select.by.id");
         ResultSetHandler<Category> rsh = new BeanHandler<>(Category.class);
         Category category = new Category();
         try {
             category = qr.query(sql_select,rsh,id);
         } catch (SQLException ex){
             ex.getMessage();
-        } finally {
-            DbUtils.closeQuietly(conn);
         }
         return category;
     }
