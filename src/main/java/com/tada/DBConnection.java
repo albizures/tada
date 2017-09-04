@@ -1,4 +1,4 @@
-package com.tada.umgproject;
+package com.tada;
 
 import java.sql.Connection;
 import java.sql.Statement;
@@ -34,6 +34,7 @@ public class DBConnection {
             return null;
         }
     }
+    
     public static ResultSet exec (String query) {
         try {
             Statement stmt = getConnection().createStatement();

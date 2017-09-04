@@ -1,6 +1,7 @@
 
-package com.tada.umgproject;
+package com.tada.beans;
 
+import com.tada.DBConnection;
 import java.sql.ResultSet;
 
 public class User {
@@ -9,6 +10,18 @@ public class User {
     private String lastName;
     private String address;
     private int phone;
+    private String password;
+
+    public User() {
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
            
     public User (final int idUser, final String firstName, final String lastName, final String address, final int phone) {
         this.idUser = idUser;
