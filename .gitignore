@@ -38,3 +38,6 @@ buildNumber.properties
 
 # tio's chapus
 db.properties
+
+#netbeans' files
+nb-configuration.xml
