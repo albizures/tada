@@ -26,7 +26,7 @@ public class ProductDAO {
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
         String sql_insert = "INSERT INTO product " +
-                            "(name" +
+                            "(name," +
                             "price," +
                             "id_category," +
                             "description," +
@@ -35,16 +35,16 @@ public class ProductDAO {
                             "(?,?,?,?,?)";
         int result = 0;
         try {
-            result = qr.update(sql_insert,
+            result = qr.update(conn,sql_insert,
                         product.getName(),
                         product.getPrice(),
                         product.getIdCategory(),
                         product.getDescription(),
                         product.getStock());
+            
         } catch (SQLException ex){
-            ex.getMessage();
+            System.out.println(ex.getMessage());
         } finally {
-            DbUtils.closeQuietly(conn);
         }
         return result;
     }
@@ -72,7 +72,7 @@ public class ProductDAO {
         } catch (SQLException ex){
             ex.getMessage();
         } finally {
-            DbUtils.closeQuietly(conn);
+            //DbUtils.closeQuietly(conn);
         }
         return result;
     }
@@ -88,7 +88,7 @@ public class ProductDAO {
         } catch (SQLException ex){
             ex.getMessage();
         } finally {
-            DbUtils.closeQuietly(conn);
+            //DbUtils.closeQuietly(conn);
         }
         return result;
     }
@@ -111,7 +111,7 @@ public class ProductDAO {
         } catch (SQLException ex){
             ex.getMessage();
         } finally {
-            DbUtils.closeQuietly(conn);
+            //DbUtils.closeQuietly(conn);
         }
         return product;
     }
@@ -119,21 +119,24 @@ public class ProductDAO {
     public List<Product> list(){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_select = "SELECT product.id_product," +
-                            "product.name," +
-                            "product.price," +
-                            "product.id_category," +
-                            "product.description," +
-                            "product.stock" +
+        String sql_select = "SELECT id_product AS idProduct," +
+                            "name," +
+                            "price," +
+                            "id_category AS idCategory," +
+                            "description," +
+                            "stock " +
                             "FROM product";
+        
         ResultSetHandler<List<Product>> rlh = new BeanListHandler<>(Product.class);
         List<Product> list = new ArrayList<>();
         try {
-            list = qr.query(sql_select, rlh);
+            list = qr.query(conn,sql_select, rlh);
         } catch (SQLException ex) {
+            System.out.println(ex.getCause());
+            System.out.println(ex.getMessage());
             ex.getMessage();
         } finally {
-            DbUtils.closeQuietly(conn);
+            //DbUtils.closeQuietly(conn);
         }
         return list;
     }
