@@ -1,4 +1,4 @@
-package com.tada.dao;
+package com.tada;
 
 import java.util.List;
 

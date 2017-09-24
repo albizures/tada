@@ -12,6 +12,7 @@ import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
+import com.tada.DAOInterface;
 import com.tada.DBConnection;
 import com.tada.PropertiesUtil;
 import com.tada.beans.Category;

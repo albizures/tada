@@ -16,6 +16,4 @@ public class Cart extends HttpServlet {
             throws ServletException, IOException {
         request.getRequestDispatcher("/cart.jsp").forward(request, response);
     }
-
-
 }

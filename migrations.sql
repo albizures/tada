@@ -1,0 +1,2 @@
+ALTER TABLE `user` ADD `email` VARCHAR(100) NOT NULL DEFAULT '' AFTER `password`;
+ALTER TABLE `user` ADD `` INT NULL DEFAULT NULL AFTER `password`;
