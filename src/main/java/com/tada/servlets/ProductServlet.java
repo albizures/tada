@@ -9,7 +9,6 @@ import com.tada.beans.Product;
 import com.tada.dao.ProductDAO;
 import com.tada.dao.CategoryDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,12 +47,13 @@ public class ProductServlet extends HttpServlet {
                 forward = "/products/index.jsp";
                 break;
             case "create":
-                request.setAttribute("test", "this is not a test");
                 request.setAttribute("categories", cDAO.findAll());
                 forward = "/products/create.jsp";
                 break;
             case "edit":
-                
+                request.setAttribute("product", pDAO.get(Integer.parseInt(request.getParameter("id"))));
+                request.setAttribute("categories", cDAO.findAll());
+                forward = "/products/edit.jsp";
                 break;
             case "delete":
                 
