@@ -1,94 +1,79 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tada.dao;
 
-import com.tada.DBConnection;
-import com.tada.beans.User;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.dbutils.DbUtils;
+import java.util.Properties;
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
-/**
- *
- * @author erick
- */
+import com.tada.DBConnection;
+import com.tada.PropertiesUtil;
+import com.tada.beans.User;
+
 public class UserDAO {
-    public int insert(User user){
+    static Properties scripts = PropertiesUtil.getProperties("sql/user.properties");
+    public int insert(final User user){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_insert = "INSERT INTO user " +
-                            "(first_name," +
-                            "last_name," +
-                            "address," +
-                            "phone," +
-                            "password) " +
-                            "VALUES " +
-                            "(?,?,?,?,?)";
+        String sql_insert = scripts.getProperty("insert");
+
         int result = 0;
         try {
-            result = qr.update(sql_insert, 
-                    user.getFirstName(),
-                    user.getLastName(),
-                    user.getAddress(),
-                    user.getPhone(),
-                    user.getPassword());
+            result = qr.update(
+                sql_insert, 
+                user.getFirstName(),
+                user.getLastName(),
+                user.getAddress(),
+                user.getPhone(),
+                user.getPassword()
+            );
         } catch (SQLException ex) {
-            ex.getMessage();
-        } finally {
-            DbUtils.closeQuietly(conn);
+            System.out.println(ex.getMessage());
         }
         return result;
     }
     
-    public int update(User user){
+    public int update(final User user){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_update = "UPDATE user " +
-                            "SET " +
-                            "first_name = ?," +
-                            "last_name = ?," +
-                            "address = ?," +
-                            "phone = ?," +
-                            "password = ? " +
-                            "WHERE id_user = ?";
+        String sql_update = scripts.getProperty("update");
+        
         int result = 0;
         try {
-            result = qr.update(sql_update, 
-                    user.getFirstName(),
-                    user.getLastName(),
-                    user.getAddress(),
-                    user.getPhone(),
-                    user.getPassword(),
-                    user.getIdUser());
+            result = qr.update(
+                sql_update, 
+                user.getFirstName(),
+                user.getLastName(),
+                user.getAddress(),
+                user.getPhone(),
+                user.getPassword(),
+                user.getIdUser()
+            );
         } catch (SQLException ex) {
-            ex.getMessage();
-        } finally {
-            DbUtils.closeQuietly(conn);
+            System.out.println(ex.getMessage());
         }
         return result;
+    }
+    
+    public int delete (final User user) {
+        return delete(user.getIdUser());
     }
     
     public int delete(int id){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_update = "DELETE FROM user " +
-                            "WHERE id_user = ?";
+        String sql_update = scripts.getProperty("delete");
+
         int result = 0;
         try {
             result = qr.update(sql_update,id);
         } catch (SQLException ex) {
-            ex.getMessage();
-        } finally {
-            DbUtils.closeQuietly(conn);
+            System.out.println(ex.getMessage());
         }
         return result;
     }
@@ -96,44 +81,43 @@ public class UserDAO {
     public List<User> list(){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_select = "SELECT user.id_user," +
-                            "user.first_name," +
-                            "user.last_name," +
-                            "user.address," +
-                            "user.phone," +
-                            "user.password " +
-                            "FROM user";
+        String sql_select = scripts.getProperty("select");
         ResultSetHandler<List<User>> rlh = new BeanListHandler<>(User.class);
         List<User> list = new ArrayList<>();
         try {
             list = qr.query(sql_select, rlh);
         } catch (SQLException ex) {
-            ex.getMessage();
-        } finally {
-            DbUtils.closeQuietly(conn);
+            System.out.println(ex.getMessage());
         }
         return list;
     }
     
-    public User get(int id){
+    public User get(final int id){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_select = "SELECT user.id_user," +
-                            "user.first_name," +
-                            "user.last_name," +
-                            "user.address," +
-                            "user.phone," +
-                            "user.password" +
-                            "FROM user" +
-                            "WHERE user.id_user =?";
+        String sql_select = scripts.getProperty("select.by.id");
+
         ResultSetHandler<User> rsh = new BeanHandler<>(User.class);
         User user = new User();
         try {
-            user = qr.query(sql_select, rsh,id);
+            user = qr.query(conn, sql_select, rsh,id);
         } catch(SQLException ex) {
-            ex.getMessage();
-        } finally {
-            DbUtils.closeQuietly(conn);
+            System.out.println(ex.getMessage());
+        }
+        return user;
+    }
+    
+    public User login(final String email, final String password) {
+        QueryRunner qr = new QueryRunner();
+        Connection conn = DBConnection.getConnection();
+        String sql_select = scripts.getProperty("select.by.email.password");
+
+        ResultSetHandler<User> rsh = new BeanHandler<>(User.class);
+        User user = new User();
+        try {
+            user = qr.query(conn, sql_select, rsh, email, password);
+        } catch(SQLException ex) {
+            System.out.println(ex.getMessage());
         }
         return user;
     }

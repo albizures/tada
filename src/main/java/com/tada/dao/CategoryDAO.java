@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -39,6 +38,7 @@ public class CategoryDAO implements DAOInterface<Category> {
         return result;
     }
     
+    @Override
     public int update(Category category){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
@@ -46,11 +46,13 @@ public class CategoryDAO implements DAOInterface<Category> {
 
         int result = 0;
         try {
-            result = qr.update(sql_update,
-                    category.getName(),
-                    category.getIdCategory());
+            result = qr.update(
+                sql_update,
+                category.getName(),
+                category.getIdCategory()
+            );
         } catch (SQLException ex) {
-            ex.getMessage();
+            System.out.println(ex.getMessage());
         }
         return result;
     }
@@ -64,7 +66,7 @@ public class CategoryDAO implements DAOInterface<Category> {
         try {
             result = qr.update(sql_delete,id);
         } catch (SQLException ex){
-            ex.getMessage();
+            System.out.println(ex.getMessage());
         }
         return result;
     }
@@ -97,7 +99,7 @@ public class CategoryDAO implements DAOInterface<Category> {
         try {
             category = qr.query(sql_select,rsh,id);
         } catch (SQLException ex){
-            ex.getMessage();
+            System.out.println(ex.getMessage());
         }
         return category;
     }
