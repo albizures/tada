@@ -21,7 +21,7 @@ public class ProductServlet extends HttpServlet {
         CategoryDAO cDAO = new CategoryDAO();
         String forward = "";
         String action = request.getParameter("action");
-        
+
         switch (action.toLowerCase().trim()) {
             case "all":
                 request.setAttribute("products", pDAO.list());
@@ -37,7 +37,7 @@ public class ProductServlet extends HttpServlet {
                 forward = "/products/edit.jsp";
                 break;
             case "delete":
-                
+
                 break;
             default:
 

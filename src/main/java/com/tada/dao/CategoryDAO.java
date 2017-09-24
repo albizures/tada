@@ -20,16 +20,16 @@ import com.tada.beans.Category;
 
 public class CategoryDAO implements DAOInterface<Category> {
     static Properties scripts = PropertiesUtil.getProperties("sql/category.properties");
-    
+
     @Override
     public int insert(Category category){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
         String sql_insert = scripts.getProperty("insert");
-        
+
         System.out.println(sql_insert);
         System.out.println(category.toString());
-        
+
         int result = 0;
         try {
             result = qr.update(conn,sql_insert, category.getName());
@@ -38,7 +38,7 @@ public class CategoryDAO implements DAOInterface<Category> {
         }
         return result;
     }
-    
+
     @Override
     public int update(Category category){
         QueryRunner qr = new QueryRunner();
@@ -57,7 +57,7 @@ public class CategoryDAO implements DAOInterface<Category> {
         }
         return result;
     }
-    
+
     @Override
     public int delete(int id){
         QueryRunner qr = new QueryRunner();
@@ -71,15 +71,13 @@ public class CategoryDAO implements DAOInterface<Category> {
         }
         return result;
     }
-    
+
     @Override
     public List<Category> findAll(){
-        
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
         String sql_select = scripts.getProperty("select");
 
-        
         ResultSetHandler<List<Category>> rlh = new BeanListHandler<>(Category.class);
         List<Category> list = new ArrayList<>();
         try {
@@ -89,7 +87,7 @@ public class CategoryDAO implements DAOInterface<Category> {
         }
         return list;
     }
-    
+
     @Override
     public Category findById(int id){
         QueryRunner qr = new QueryRunner();

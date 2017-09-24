@@ -1,4 +1,3 @@
-
 package com.tada.beans;
 
 public class User {

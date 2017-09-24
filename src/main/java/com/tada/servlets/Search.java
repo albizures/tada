@@ -15,5 +15,4 @@ public class Search extends HttpServlet {
             throws ServletException, IOException {
         request.getRequestDispatcher("/search.jsp").forward(request, response);
     }
-
 }

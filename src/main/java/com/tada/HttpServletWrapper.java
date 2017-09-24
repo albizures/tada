@@ -26,7 +26,7 @@ public class HttpServletWrapper extends HttpServlet{
         User user = userDAO.get(idUser);
         return user.isValidUser();
     }
-    
+
     protected void render404 (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/404.jsp").forward(request, response);
     }

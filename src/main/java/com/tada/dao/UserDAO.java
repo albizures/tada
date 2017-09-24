@@ -17,6 +17,7 @@ import com.tada.beans.User;
 
 public class UserDAO {
     static Properties scripts = PropertiesUtil.getProperties("sql/user.properties");
+
     public int insert(final User user){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
@@ -37,7 +38,7 @@ public class UserDAO {
         }
         return result;
     }
-    
+
     public int update(final User user){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
@@ -59,11 +60,11 @@ public class UserDAO {
         }
         return result;
     }
-    
+
     public int delete (final User user) {
         return delete(user.getIdUser());
     }
-    
+
     public int delete(int id){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
@@ -77,7 +78,7 @@ public class UserDAO {
         }
         return result;
     }
-    
+
     public List<User> list(){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
@@ -91,7 +92,7 @@ public class UserDAO {
         }
         return list;
     }
-    
+
     public User get(final int id){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
@@ -106,7 +107,7 @@ public class UserDAO {
         }
         return user;
     }
-    
+
     public User login(final String email, final String password) {
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();

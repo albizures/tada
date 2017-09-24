@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tada.dao;
 
 import com.tada.DBConnection;
@@ -17,10 +12,6 @@ import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
-/**
- *
- * @author erick
- */
 public class ProductDAO {
     public int insert(Product product){
         QueryRunner qr = new QueryRunner();
@@ -41,14 +32,14 @@ public class ProductDAO {
                         product.getIdCategory(),
                         product.getDescription(),
                         product.getStock());
-            
+
         } catch (SQLException ex){
             System.out.println(ex.getMessage());
         } finally {
         }
         return result;
     }
-    
+
     public int update(Product product){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
@@ -92,7 +83,7 @@ public class ProductDAO {
         }
         return result;
     }
-    
+
     public Product get(int id){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
@@ -115,7 +106,7 @@ public class ProductDAO {
         }
         return product;
     }
-    
+
     public List<Product> list(){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();

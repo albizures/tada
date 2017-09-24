@@ -13,14 +13,13 @@ import com.tada.beans.Category;
 @WebServlet(name = "Category", urlPatterns = {"/category"})
 public class CategoryServlet extends HttpServlet {
     final CategoryDAO categoryDAO = new CategoryDAO();
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         request.setAttribute("categories", categoryDAO.findAll());
         request.getRequestDispatcher("/category.jsp").forward(request, response);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -30,5 +29,4 @@ public class CategoryServlet extends HttpServlet {
         
         doGet(request, response);
     }
-
 }

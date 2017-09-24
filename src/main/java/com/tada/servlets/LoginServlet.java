@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = userDAO.login(
@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
             request.getParameter("password")
         );
         System.out.println(user);
-        
+
         if (user.isValidUser()) {
             HttpSession session = request.getSession();
             session.setAttribute("idUser", user.getIdUser());

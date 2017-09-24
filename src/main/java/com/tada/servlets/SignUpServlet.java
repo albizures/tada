@@ -16,5 +16,4 @@ public class SignUpServlet extends HttpServlet {
             throws ServletException, IOException {
         request.getRequestDispatcher("/signup.jsp").forward(request, response);
     }
-
 }
