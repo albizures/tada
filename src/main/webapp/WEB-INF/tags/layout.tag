@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@tag description="global layout" pageEncoding="UTF-8"%>
 <%@attribute name="hero" fragment="true" %>
 <html>
@@ -45,9 +46,18 @@
                         <a class="navbar-item" href="/cart">
                             Cart
                         </a>
-                        <a class="navbar-item " href="/login">
-                            Login
-                        </a>
+                        <c:choose>
+                            <c:when test="${sessionScope.idUser > -1}">
+                                <a class="navbar-item is-capitalized" href="/profile">
+                                    ${sessionScope.firstName} ${sessionScope.lastName}
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="navbar-item is-capitalized" href="/login">
+                                Login
+                                </a>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>       
@@ -57,6 +67,6 @@
             <jsp:doBody/>
         </div>
         <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="js/materialize.min.js"></script> 
+        <script type="text/javascript" src="js/materialize.min.js"></script>
     </body>
 </html>

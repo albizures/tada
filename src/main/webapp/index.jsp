@@ -18,5 +18,6 @@
     </jsp:attribute>
     <jsp:body>
         :)
+        <p>${sessionScope.email}</p>
     </jsp:body>
 </tag:layout>
