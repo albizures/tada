@@ -58,6 +58,10 @@ public class CategoryDAO implements DAOInterface<Category> {
         return result;
     }
 
+    public int delete(Category category){
+        return delete(category.getIdCategory());
+    }
+
     @Override
     public int delete(int id){
         QueryRunner qr = new QueryRunner();
