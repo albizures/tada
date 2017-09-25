@@ -37,7 +37,9 @@ public class ProductServlet extends HttpServlet {
                 forward = "/products/edit.jsp";
                 break;
             case "delete":
-
+                pDAO.delete(Integer.parseInt(request.getParameter("id")));
+                request.setAttribute("products", pDAO.list());
+                forward = "/products/index.jsp";
                 break;
             default:
 
@@ -50,12 +52,23 @@ public class ProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ProductDAO pDAO = new ProductDAO();
-        Product product = new Product(request.getParameter("name"),
-                BigDecimal.valueOf(Double.parseDouble(request.getParameter("price"))),
-                Integer.parseInt(request.getParameter("category")), 
-                request.getParameter("description").trim(), 
-                Integer.parseInt(request.getParameter("stock")));
-        pDAO.insert(product);
+        if(request.getParameter("action").equals("insert")) {
+            Product product = new Product(request.getParameter("name"),
+                    BigDecimal.valueOf(Double.parseDouble(request.getParameter("price"))),
+                    Integer.parseInt(request.getParameter("category")), 
+                    request.getParameter("description").trim(), 
+                    Integer.parseInt(request.getParameter("stock")));
+            pDAO.insert(product);
+        } else if(request.getParameter("action").equals("update")){
+            Product product = new Product(
+                    Integer.parseInt(request.getParameter("id")), 
+                    request.getParameter("name"), 
+                    new BigDecimal(request.getParameter("price")), 
+                    Integer.parseInt(request.getParameter("category")), 
+                    request.getParameter("description").trim(), 
+                    Integer.parseInt(request.getParameter("stock")));
+            pDAO.update(product);
+        }
         response.sendRedirect(request.getContextPath()+"/products?action=all");
     }
 }

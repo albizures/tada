@@ -53,7 +53,7 @@ public class ProductDAO {
                             "WHERE id_product = ?";
         int result = 0;
         try {
-            result = qr.update(sql_insert,
+            result = qr.update(conn,sql_insert,
                         product.getName(),
                         product.getPrice(),
                         product.getIdCategory(),
@@ -73,11 +73,13 @@ public class ProductDAO {
         Connection conn = DBConnection.getConnection();
         String sql_insert = "DELETE FROM product " +
                             "WHERE id_product = ?";
+        System.out.println(sql_insert);
+        System.out.println(id);
         int result = 0;
         try {
-            result = qr.update(sql_insert,id);
+            result = qr.update(conn,sql_insert,id);
         } catch (SQLException ex){
-            ex.getMessage();
+            System.out.println(ex.getMessage());
         } finally {
             //DbUtils.closeQuietly(conn);
         }
@@ -87,18 +89,18 @@ public class ProductDAO {
     public Product get(int id){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_select = "SELECT product.id_product," +
+        String sql_select = "SELECT product.id_product AS idProduct," +
                             "product.name," +
                             "product.price," +
-                            "product.id_category," +
+                            "product.id_category AS idCategory," +
                             "product.description," +
-                            "product.stock" +
+                            "product.stock " +
                             "FROM product " +
                             "WHERE product.id_product = ?";
         ResultSetHandler<Product> rsh = new BeanHandler<>(Product.class);
         Product product = new Product();
         try {
-            product = qr.query(sql_select, rsh,id);
+            product = qr.query(conn,sql_select, rsh,id);
         } catch (SQLException ex){
             ex.getMessage();
         } finally {

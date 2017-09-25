@@ -4,6 +4,7 @@
 <tag:layout>
     <jsp:body>        
         <form action="/products" method="post">
+            <input name="action" type="hidden" value="insert">
             <div class="field">
                 <label class="label">Name</label>
                 <div class="control">

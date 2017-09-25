@@ -27,7 +27,7 @@
                                 <td>${product.getDescription()}</td>
                                 <td>
                                     <a class="button is-warning is-small" href="/products?action=edit&id=${product.getIdProduct()}">Edit</a>
-                                    <a class="button is-info is-small" href="/products?action=delete&id=${product.getIdProduct()}">Details</a>
+                                    <a class="button is-danger is-small" href="/products?action=delete&id=${product.getIdProduct()}">Delete</a>
                                 </td>
                             </tr>
                         </c:forEach>
