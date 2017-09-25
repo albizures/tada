@@ -11,7 +11,6 @@
         <link href="/favicon.ico" rel="icon" type="image/x-icon" />
     </head>
     <body>
-
         <nav class="navbar">
             <div class="container">
                <div class="navbar-brand">

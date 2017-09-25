@@ -5,10 +5,21 @@ $(function () {
 
        $modal.addClass('is-active');
     });
+
     $('.close-modal').click(function () {
        var $button = $(this);
-       var $modal = $('#' + $button.data('modal'));
+       var idModal = $button.data('modal');
+       
+       if (!idModal) {
+           idModal = $button.closest('.modal').attr("id");
+           $button.data('modal', idModal);
+       }
 
+       var $modal = $('#' + idModal);
+       window.history.pushState("", "", location.pathname);
        $modal.removeClass('is-active');
     });
+    
+
+
 });
