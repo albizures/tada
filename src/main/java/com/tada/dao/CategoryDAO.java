@@ -48,6 +48,7 @@ public class CategoryDAO implements DAOInterface<Category> {
         int result = 0;
         try {
             result = qr.update(
+                conn,
                 sql_update,
                 category.getName(),
                 category.getIdCategory()
@@ -69,7 +70,7 @@ public class CategoryDAO implements DAOInterface<Category> {
         String sql_delete = scripts.getProperty("delete");
         int result = 0;
         try {
-            result = qr.update(sql_delete,id);
+            result = qr.update(conn, sql_delete, id);
         } catch (SQLException ex){
             System.out.println(ex.getMessage());
         }
@@ -100,7 +101,7 @@ public class CategoryDAO implements DAOInterface<Category> {
         ResultSetHandler<Category> rsh = new BeanHandler<>(Category.class);
         Category category = new Category();
         try {
-            category = qr.query(sql_select,rsh,id);
+            category = qr.query(conn, sql_select, rsh, id);
         } catch (SQLException ex){
             System.out.println(ex.getMessage());
         }

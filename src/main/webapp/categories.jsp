@@ -1,62 +1,62 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<tag:layout>
+<t:layout>
     <jsp:body>
-        <button class="button is-primary open-modal" data-modal="addCategory">Add</button> 
-        <form action="/categories" method="post">
-            <div class="field">
-                
-            </div>
-            <div class="field is-grouped">
-                <div class="control">
-                  <button class="button is-primary">Create</button>
-                </div>
-             </div>
-        </form>
-        
+        <button class="button is-primary open-modal" data-modal="addCategory">Add</button>
         <table class="table">
             <thead>
-              <tr>
-                <th><abbr title="ID">ID</abbr></th>
-                <th><abbr title="Name">Name</abbr></th>
-                <th><abbr title="Name"></abbr></th>
-              </tr>
+                <tr>
+                    <th><abbr title="ID">ID</abbr></th>
+                    <th><abbr title="Name">Name</abbr></th>
+                    <th><abbr></abbr></th>
+                    <th><abbr></abbr></th>
+                </tr>
             </thead>
             <tbody>
                 <c:forEach items="${categories}" var="category">
                     <tr>
                         <th>${category.getIdCategory()}</th>
                         <td>${category.getName()}</td>
+                        <th><a href="?edit=${category.getIdCategory()}" class="button is-warning is-small">edit</a></th>
                         <th>
-                            <form action="/categories" method="DELETE">
-                                <input type="hidden" name="id" value="${category.getIdCategory()}" />
-                                <button class="delete"></button>
-                            </form>
+                            <t:delete action="/categories">
+                                <jsp:body>
+                                    <input type="hidden" name="id" value="${category.getIdCategory()}" />
+                                    <button class="delete"></button>
+                                </jsp:body>
+                            </t:delete>
+                            
                         </th>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
-        <div id="addCategory" class="modal">
-            <div class="modal-background"></div>
-            <div class="modal-card">
-              <header class="modal-card-head">
-                <p class="modal-card-title">Add category</p>
-                <button class="delete close-modal" aria-label="close" data-modal="addCategory"></button>
-              </header>
-              <section class="modal-card-body">
-                <label class="label">Name</label>
-                <div class="control">
-                  <input name="name" class="input" type="text" placeholder="Enter the name">
-                </div>
-              </section>
-              <footer class="modal-card-foot">
-                <button class="button is-success">Save changes</button>
-                <button class="button close-modal" data-modal="addCategory">Cancel</button>
-              </footer>
-            </div>
-        </div>
+        <t:modal id="addCategory" active="${edit}" name="${edit ? 'Edit' : 'Add' } category">
+            <jsp:body>
+                <t:form action="/categories" type="${edit ? 'PUT' : 'POST' }" >
+                    <jsp:body>
+                        <label class="label">Name</label>
+                        <div class="control">
+                            <div class="field">
+                                <input name="name" required="true" class="input" value="${category.getName()}" type="text" placeholder="Enter the name">
+                                <c:if test="${edit}">
+                                   <input name="id" value="${category.getIdCategory()}" type="hidden">
+                                </c:if>
+                            </div>
+                            <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-primary" type="submit">Submit</button>
+                            </div>
+                            <div class="control">
+                                <button class="button is-link close-modal" type="button">Cancel</button>
+                            </div>
+                          </div>
+                        </div>
+                    </jsp:body>
+                </t:form>
+            </jsp:body>
+        </t:modal>
     </jsp:body>
-</tag:layout>
+</t:layout>

@@ -1,7 +1,7 @@
 package com.tada.beans;
 
 public class Category {
-    private int idCategory;
+    private int idCategory = -1;
     private String name;
 
     public Category(int idCategory, String name) {
@@ -30,6 +30,10 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public boolean isValid () {
+        return idCategory > -1;
     }
 
     @Override
