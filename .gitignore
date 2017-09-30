@@ -2,6 +2,8 @@ target
 # Compiled class file
 *.class
 
+.DS_Store
+
 # Log file
 *.log
 
@@ -41,3 +43,4 @@ db.properties
 
 #netbeans' files
 nb-configuration.xml
+/target
