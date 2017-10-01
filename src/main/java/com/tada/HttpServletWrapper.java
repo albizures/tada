@@ -17,18 +17,33 @@ public class HttpServletWrapper extends HttpServlet{
     protected final String PUT_ACTION = "PUT";
     protected final String POST_ACTION = "POST";
     
-    protected boolean isValidSession (HttpServletRequest request) {
+    private User getSessionUser (HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return false;
+            return null;
         }
         Object idUserAttribute = session.getAttribute("idUser");
         if (idUserAttribute == null) {
-            return false;
+            return null;
         }
         int idUser = (int)idUserAttribute;
-        User user = userDAO.get(idUser);
-        return user.isValidUser();
+        return userDAO.get(idUser);
+    }
+    
+    protected boolean isValidSession (HttpServletRequest request) {
+        User user = getSessionUser(request);
+        if (user == null) {
+            return false;
+        }
+        return user.isValid();
+    }
+    
+    protected boolean isValidAdminSession (HttpServletRequest request) {
+        User user = getSessionUser(request);
+        if (user == null) {
+            return false;
+        }
+        return user.isValid() && user.isAdmin();
     }
 
     protected void render404 (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,7 +56,7 @@ public class HttpServletWrapper extends HttpServlet{
             return POST_ACTION;
         }
         
-        switch (actionType) { // to any avoid any unknow type
+        switch (actionType) { // to avoid any unknow type
             case DELETE_ACTION:
             case PUT_ACTION:
             case POST_ACTION:

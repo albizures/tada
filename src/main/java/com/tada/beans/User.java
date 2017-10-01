@@ -8,6 +8,7 @@ public class User {
     private int phone;
     private String password;
     private String email;
+    private boolean admin;
 
     public User() {
     }
@@ -76,7 +77,19 @@ public class User {
         this.email = email;
     }
     
-    public boolean isValidUser () {
+    public boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+    
+    public boolean isAdmin () {
+        return admin;
+    }
+    
+    public boolean isValid () {
         return idUser > -1 ;
     }
     

@@ -26,14 +26,14 @@ public class LoginServlet extends HttpServlet {
             request.getParameter("email"),
             request.getParameter("password")
         );
-        System.out.println(user);
 
-        if (user.isValidUser()) {
+        if (user.isValid()) {
             HttpSession session = request.getSession();
             session.setAttribute("idUser", user.getIdUser());
             session.setAttribute("email", user.getEmail());
             session.setAttribute("firstName", user.getFirstName());
             session.setAttribute("lastName", user.getLastName());
+            session.setAttribute("admin", user.getAdmin());
             response.sendRedirect("/");
             return;
         }

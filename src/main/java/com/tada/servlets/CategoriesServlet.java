@@ -16,6 +16,10 @@ public class CategoriesServlet extends HttpServletWrapper {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (!super.isValidAdminSession(request)) {
+            super.render404(request, response);
+            return;
+        }
         request.setAttribute("categories", categoryDAO.findAll());
         String edit = request.getParameter("edit");
         if (edit != null) {
