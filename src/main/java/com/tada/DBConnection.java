@@ -22,7 +22,7 @@ public class DBConnection {
         
         try{     
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName, dbUser, dbPassword);
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + "?allowMultiQueries=true", dbUser, dbPassword);
             return conn;
         } catch(SQLException e){
             System.out.println("SQLException: " + e.getMessage());

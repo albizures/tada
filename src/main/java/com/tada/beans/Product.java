@@ -6,26 +6,47 @@ public class Product {
     private int idProduct;
     private String name;
     private BigDecimal price;
-    private int idCategory;
+    private Category category;
     private String description;
     private int stock;
+    private Image image;
 
     public Product() {
     }
     
-    public Product(int idProduct, String name, BigDecimal price, int idCategory, String description, int stock) {
+    public Product(int idProduct, String name, BigDecimal price, Category category, String description, int stock, Image image) {
         this.idProduct = idProduct;
         this.name = name;
         this.price = price;
-        this.idCategory = idCategory;
+        this.category = category;
         this.description = description;
         this.stock = stock;
+        this.image = image;
     }
-
-    public Product(String name, BigDecimal price, int idCategory, String description, int stock) {
+    
+    public Product(int idProduct, String name, BigDecimal price, int idCategory, String description, int stock, Image image) {
+        this.idProduct = idProduct;
         this.name = name;
         this.price = price;
-        this.idCategory = idCategory;
+        this.category = new Category(idCategory);
+        this.description = description;
+        this.stock = stock;
+        this.image = image;
+    }
+    
+    public Product(String name, BigDecimal price, int idCategory, String description, int stock, Image image) {
+        this.name = name;
+        this.price = price;
+        this.category = new Category(idCategory);
+        this.description = description;
+        this.stock = stock;
+        this.image = image;
+    }
+
+    public Product(String name, BigDecimal price, Category category, String description, int stock) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
         this.description = description;
         this.stock = stock;
     }
@@ -54,12 +75,12 @@ public class Product {
         this.price = price;
     }
 
-    public int getIdCategory() {
-        return idCategory;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setIdCategory(int idCategory) {
-        this.idCategory = idCategory;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getDescription() {
@@ -77,9 +98,21 @@ public class Product {
     public void setStock(int stock) {
         this.stock = stock;
     }
+    
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+    
+    public boolean isValid () {
+        return idProduct > -1;
+    }
 
     @Override
     public String toString() {
-        return "Product{" + "idProduct=" + idProduct + ", name=" + name + ", price=" + price + ", idCategory=" + idCategory + ", description=" + description + ", stock=" + stock + '}';
+        return "Product{" + "idProduct=" + idProduct + ", name=" + name + ", price=" + price + ", category=" + category.getName() + ", description=" + description + ", stock=" + stock + '}';
     }
 }

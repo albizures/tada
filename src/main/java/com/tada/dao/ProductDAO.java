@@ -1,135 +1,120 @@
 package com.tada.dao;
 
-import com.tada.DBConnection;
-import com.tada.beans.Product;
+import com.tada.DAOInterface;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.dbutils.DbUtils;
+import java.util.Properties;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
-import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
 
-public class ProductDAO {
-    public int insert(Product product){
+import com.tada.DBConnection;
+import com.tada.PropertiesUtil;
+
+import com.tada.beans.Product;
+
+import com.tada.handlers.ProductHandler;
+import com.tada.handlers.ProductListHandler;
+
+public class ProductDAO implements DAOInterface<Product> {
+    static Properties scripts = PropertiesUtil.getProperties("sql/product.properties");
+
+    @Override
+    public Product insert(Product product){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_insert = "INSERT INTO product " +
-                            "(name," +
-                            "price," +
-                            "id_category," +
-                            "description," +
-                            "stock)" +
-                            "VALUES " +
-                            "(?,?,?,?,?)";
-        int result = 0;
+        String sql_insert = scripts.getProperty("insert");
+        
+        ResultSetHandler <Product> handler = new ProductHandler();
         try {
-            result = qr.update(conn,sql_insert,
-                        product.getName(),
-                        product.getPrice(),
-                        product.getIdCategory(),
-                        product.getDescription(),
-                        product.getStock());
-
+            return qr.insert(
+                conn,
+                sql_insert,
+                handler,
+                product.getName(),
+                product.getPrice(),
+                product.getCategory().getIdCategory(),
+                product.getDescription(),
+                product.getStock(),
+                product.getImage().getIdImage()
+            );
         } catch (SQLException ex){
             System.out.println(ex.getMessage());
-        } finally {
         }
-        return result;
+        return null;
     }
 
+    @Override
     public int update(Product product){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_insert = "UPDATE product " +
-                            "SET " +
-                            "name = ?," +
-                            "price = ?," +
-                            "id_category = ?," +
-                            "description = ?," +
-                            "stock = ? " +
-                            "WHERE id_product = ?";
+        String sql_insert = scripts.getProperty("update");
         int result = 0;
         try {
-            result = qr.update(conn,sql_insert,
-                        product.getName(),
-                        product.getPrice(),
-                        product.getIdCategory(),
-                        product.getDescription(),
-                        product.getStock(),
-                        product.getIdProduct());
+            result = qr.update(
+                conn,
+                sql_insert,
+                product.getName(),
+                product.getPrice(),
+                product.getCategory().getIdCategory(),
+                product.getDescription(),
+                product.getStock(),
+                product.getImage().getIdImage(),
+                product.getIdProduct()  
+            );
         } catch (SQLException ex){
-            ex.getMessage();
-        } finally {
-            //DbUtils.closeQuietly(conn);
+            System.out.println(ex.getMessage());
         }
         return result;
     }
     
+    @Override
     public int delete(int id){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_insert = "DELETE FROM product " +
-                            "WHERE id_product = ?";
-        System.out.println(sql_insert);
-        System.out.println(id);
+        String sql_insert = scripts.getProperty("product");
+
         int result = 0;
         try {
             result = qr.update(conn,sql_insert,id);
         } catch (SQLException ex){
             System.out.println(ex.getMessage());
-        } finally {
-            //DbUtils.closeQuietly(conn);
         }
+
         return result;
     }
 
-    public Product get(int id){
+    @Override
+    public Product findById(int id){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_select = "SELECT product.id_product AS idProduct," +
-                            "product.name," +
-                            "product.price," +
-                            "product.id_category AS idCategory," +
-                            "product.description," +
-                            "product.stock " +
-                            "FROM product " +
-                            "WHERE product.id_product = ?";
-        ResultSetHandler<Product> rsh = new BeanHandler<>(Product.class);
+        String sql_select = scripts.getProperty("select.by.id");
+
+        ResultSetHandler <Product> handler = new ProductHandler();
+
         Product product = new Product();
         try {
-            product = qr.query(conn,sql_select, rsh,id);
+            product = qr.query(conn, sql_select, handler, id);
         } catch (SQLException ex){
-            ex.getMessage();
-        } finally {
-            //DbUtils.closeQuietly(conn);
+            System.out.println(ex.getMessage());
         }
         return product;
     }
 
-    public List<Product> list(){
+    @Override
+    public List<Product> findAll(){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
-        String sql_select = "SELECT id_product AS idProduct," +
-                            "name," +
-                            "price," +
-                            "id_category AS idCategory," +
-                            "description," +
-                            "stock " +
-                            "FROM product";
+        String sql_select = scripts.getProperty("select");
         
-        ResultSetHandler<List<Product>> rlh = new BeanListHandler<>(Product.class);
+        ProductListHandler handler = new ProductListHandler();
         List<Product> list = new ArrayList<>();
         try {
-            list = qr.query(conn,sql_select, rlh);
+            list = qr.query(conn, sql_select, handler);
         } catch (SQLException ex) {
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
-            ex.getMessage();
-        } finally {
-            //DbUtils.closeQuietly(conn);
         }
         return list;
     }

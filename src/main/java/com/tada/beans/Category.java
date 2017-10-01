@@ -13,6 +13,10 @@ public class Category {
         this.name = name;
     }
     
+    public Category(int idCategory) {
+        this.idCategory = idCategory;
+    }
+    
     public Category() {
     }
 
