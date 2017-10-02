@@ -37,14 +37,14 @@
             <jsp:body>
                 <t:form action="/categories" type="${edit ? 'PUT' : 'POST' }" >
                     <jsp:body>
-                        <label class="label">Name</label>
                         <div class="control">
                             <div class="field">
+                                <label class="label">Name</label>
                                 <input name="name" required="true" class="input" value="${category.getName()}" type="text" placeholder="Enter the name">
-                                <c:if test="${edit}">
-                                   <input name="id" value="${category.getIdCategory()}" type="hidden">
-                                </c:if>
                             </div>
+                            <c:if test="${edit}">
+                                <input name="id" value="${category.getIdCategory()}" type="hidden">
+                             </c:if>
                             <div class="field is-grouped">
                             <div class="control">
                                 <button class="button is-primary" type="submit">Submit</button>

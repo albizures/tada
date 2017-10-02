@@ -22,21 +22,19 @@ public class CategoryDAO implements DAOInterface<Category> {
     static Properties scripts = PropertiesUtil.getProperties("sql/category.properties");
 
     @Override
-    public int insert(Category category){
+    public Category insert(Category category){
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
         String sql_insert = scripts.getProperty("insert");
 
-        System.out.println(sql_insert);
-        System.out.println(category.toString());
+        ResultSetHandler<Category> handler = new BeanHandler<>(Category.class);
 
-        int result = 0;
         try {
-            result = qr.update(conn,sql_insert, category.getName());
+            return qr.insert(conn, sql_insert, handler, category.getName());
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        return result;
+        return null;
     }
 
     @Override

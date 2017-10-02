@@ -16,8 +16,8 @@ $(function () {
        }
 
        var $modal = $('#' + idModal);
-       window.history.pushState("", "", location.pathname);
        $modal.removeClass('is-active');
+       location.search = '';
     });
     
 
