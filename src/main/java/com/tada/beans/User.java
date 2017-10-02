@@ -21,14 +21,25 @@ public class User {
         this.password = password;
     }
            
-    public User (final int idUser, final String firstName, final String lastName, final String address, final int phone) {
+    public User (final int idUser, final String firstName, final String lastName, 
+            final String address, final int phone) {
         this.idUser = idUser;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
     }
-    
+
+    public User(String firstName, String lastName, String address, int phone, 
+            String password, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.phone = phone;
+        this.password = password;
+        this.email = email;
+    }
+
     public int getIdUser() {
         return idUser;
     }
