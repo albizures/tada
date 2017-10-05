@@ -25,13 +25,14 @@ public class UserDAO {
 
         int result = 0;
         try {
-            result = qr.update(
+            result = qr.update(conn,
                 sql_insert, 
                 user.getFirstName(),
                 user.getLastName(),
                 user.getAddress(),
                 user.getPhone(),
-                user.getPassword()
+                user.getPassword(),
+                user.getEmail()
             );
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
