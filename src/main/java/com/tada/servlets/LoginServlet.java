@@ -34,6 +34,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("firstName", user.getFirstName());
             session.setAttribute("lastName", user.getLastName());
             session.setAttribute("admin", user.getAdmin());
+            session.setAttribute("session", request.getSession().getId());
             response.sendRedirect("/");
             return;
         }

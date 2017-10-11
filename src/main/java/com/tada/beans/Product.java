@@ -113,6 +113,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "idProduct=" + idProduct + ", name=" + name + ", price=" + price + ", category=" + category.getName() + ", description=" + description + ", stock=" + stock + '}';
+        return "Product{" + "idProduct=" + idProduct + ", name=" + name + ", price=" + price + ", category=" + category.getName() + ", description=" + description + ", stock=" + stock + ", image="+image.getUrl()+"}";
     }
 }

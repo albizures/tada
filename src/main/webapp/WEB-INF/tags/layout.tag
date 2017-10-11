@@ -63,10 +63,11 @@
         </nav>
         <jsp:invoke fragment="hero"/>
         <div class="container">
-            <jsp:doBody/>
+            <jsp:doBody/>           
         </div>
         <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/shopping.js"></script>
     </body>
 </html>

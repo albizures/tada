@@ -107,11 +107,28 @@ public class ProductDAO implements DAOInterface<Product> {
         QueryRunner qr = new QueryRunner();
         Connection conn = DBConnection.getConnection();
         String sql_select = scripts.getProperty("select");
-        
         ProductListHandler handler = new ProductListHandler();
         List<Product> list = new ArrayList<>();
         try {
             list = qr.query(conn, sql_select, handler);
+            for (Product product : list) {
+                System.out.println(product.toString());
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getCause());
+            System.out.println(ex.getMessage());
+        }
+        return list;
+    }
+    
+    public List<Product> findByCriteria(String name){
+        QueryRunner qr = new QueryRunner();
+        Connection conn = DBConnection.getConnection();
+        String sql_select = scripts.getProperty("select.by.criteria");
+        ProductListHandler handler = new ProductListHandler();
+        List<Product> list = new ArrayList<>();
+        try {
+            list = qr.query(conn,sql_select, handler);
         } catch (SQLException ex) {
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());
