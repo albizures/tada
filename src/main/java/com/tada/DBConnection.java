@@ -19,10 +19,12 @@ public class DBConnection {
         final String dbName = dbConfig.getProperty("db.name");
         final String dbUser = dbConfig.getProperty("db.user");
         final String dbPassword = dbConfig.getProperty("db.password");
+        final String dbHost = dbConfig.getProperty("db.host");
+        final String dbPort = dbConfig.getProperty("db.host");
         
         try{     
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + "?allowMultiQueries=true", dbUser, dbPassword);
+            conn = DriverManager.getConnection("jdbc:mysql://" + dbHost +":" + dbPort + "/" + dbName + "?allowMultiQueries=true", dbUser, dbPassword);
             return conn;
         } catch(SQLException e){
             System.out.println("SQLException: " + e.getMessage());

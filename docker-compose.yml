@@ -5,18 +5,8 @@ services:
     image: tomcat:8
     volumes:
       - ./target/Tada:/usr/local/tomcat/webapps/ROOT
+      - /opt/tomcat/lib/mysql-connector-java-5.1.18.jar:/opt/tomcat/lib/mysql-connector-java-5.1.18.jar
     links:
       - mysql
     ports:
       - "80:8080"
-  mysql:
-    image: mysql:8.0.3
-    command: mysql -u root -p
-    volumes:
-      - ./db.sql:/db.sql
-    expose:
-      - "3306"
-    ports:
-      - "3306:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD
