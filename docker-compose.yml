@@ -6,7 +6,7 @@ services:
     volumes:
       - ./target/Tada:/usr/local/tomcat/webapps/ROOT
       - /opt/tomcat/lib/mysql-connector-java-5.1.18.jar:/opt/tomcat/lib/mysql-connector-java-5.1.18.jar
-    links:
-      - mysql
     ports:
       - "80:8080"
+    extra_hosts:
+      - "mysql:34.197.183.11"
