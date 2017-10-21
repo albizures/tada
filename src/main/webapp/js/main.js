@@ -19,7 +19,4 @@ $(function () {
        $modal.removeClass('is-active');
        location.search = '';
     });
-    
-
-
 });

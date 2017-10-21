@@ -5,6 +5,9 @@
 
 <t:layout>
     <jsp:body>
+        <div>
+            <a href="cart.jsp">Ver carro</a>
+        </div>
         <div class="container">
             <label>Mostrar por pagina</label>
             <select>
@@ -20,14 +23,15 @@
                     <figure>
                         <img src="${product.getImage().getUrl()}" class="image is-128x128">
                     </figure>
-                    <p>Price $<fmt:formatNumber type="number" maxFractionDigits="2" value="${product.getPrice()}"></fmt:formatNumber> - Stock ${product.getStock()}</p>
+                    <p>Price <fmt:formatNumber type="number" maxFractionDigits="2" value="${product.getPrice()}"></fmt:formatNumber> - Stock ${product.getStock()}</p>
                     <div class="field is-grouped">
-                        <button class="button is-success add-to-cart">Add to cart</button>
+                        <button class="button is-success add-to-cart" 
+                                data-product="${product.getIdProduct()}" 
+                                data-price="${product.getPrice()}">Add to cart</button>
                         <button class="button is-info details">Details</button>
                     </div>
                 </div>
             </c:forEach>
         </div>
-        <script src="js/shopping.js"></script>
     </jsp:body>
 </t:layout>

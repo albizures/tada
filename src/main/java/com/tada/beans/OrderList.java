@@ -18,7 +18,9 @@ public class OrderList {
         this.idProduct = idProduct;
         this.quantity = quantity;
     }
-
+    
+    public OrderList(){}
+    
     public int getIdOrderList() {
         return idOrderList;
     }
