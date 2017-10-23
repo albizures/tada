@@ -27,7 +27,8 @@
                     <div class="field is-grouped">
                         <button class="button is-success add-to-cart" 
                                 data-product="${product.getIdProduct()}" 
-                                data-price="${product.getPrice()}">Add to cart</button>
+                                data-price="${product.getPrice()}"
+                                data-name="${product.getName()}">Add to cart</button>
                         <button class="button is-info details">Details</button>
                     </div>
                 </div>

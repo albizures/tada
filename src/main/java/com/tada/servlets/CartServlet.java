@@ -1,9 +1,9 @@
 package com.tada.servlets;
 
+import com.tada.HttpServletWrapper;
 import com.tada.beans.OrderList;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,14 +13,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import com.tada.beans.CartItem;
+import java.math.BigDecimal;
 
 @WebServlet(name = "Cart", urlPatterns = {"/cart"})
-public class Cart extends HttpServlet {
+public class CartServlet extends HttpServletWrapper {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if(!super.isValidSession(request)){
+            super.renderLogin(request, response);
+            return;
+        }
         HttpSession session = request.getSession();
         List<OrderList> cartList = (List<OrderList>) session.getAttribute("cartList");
         request.setAttribute("cartList", cartList);
@@ -31,15 +36,15 @@ public class Cart extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
-        OrderList item;
-        List<OrderList> cartList = (List<OrderList>) session.getAttribute("cartList");
+        CartItem item;
+        List<CartItem> cartList = (List<CartItem>) session.getAttribute("cartList");
         if(cartList == null){
             cartList = new ArrayList<>();
         }
         try {
             if(action.toLowerCase().equals("add")){
-                item = new OrderList();
-                item.setIdProduct(Integer.parseInt(request.getParameter("product")));
+                BigDecimal price = new BigDecimal(request.getParameter("price"));
+                item = new CartItem(request.getParameter("name"),price);
                 cartList.add(item);
                 session.setAttribute("cartList", cartList);
                 response.getWriter().println("Producto agregado al carrito");
@@ -49,7 +54,7 @@ public class Cart extends HttpServlet {
                 request.setAttribute("cartList", cartList);
             }
         } catch(IOException ex){
-                Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CartServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

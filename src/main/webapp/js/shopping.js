@@ -1,9 +1,9 @@
 $(function() {
-    alert("hola");
     $(".add-to-cart").click(function() {
         var id = $(this).data("product");
         var price = $(this).data("price");
-        ajax_("/cart", "POST", {action:"add", product: id, price: price}, function(response){
+        var name = $(this).data("name");
+        ajax_("/cart", "POST", {action:"add", product: id, price: price, name: name}, function(response){
             console.log(response.responseText);
         });
     });

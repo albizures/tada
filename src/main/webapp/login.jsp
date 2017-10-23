@@ -11,7 +11,7 @@
                 <form action="/login" method="post">
                     <div class="field">
                         <p class="control has-icons-left has-icons-right">
-                            <input name="email" class="input" required="true" type="email" placeholder="Email">
+                            <input name="email" class="input" required="true" type="email" placeholder="Email" autofocus="true">
                             <span class="icon is-small is-left">
                                 <i class="fa fa-envelope"></i>
                             </span>

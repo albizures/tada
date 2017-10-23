@@ -50,6 +50,10 @@ public class HttpServletWrapper extends HttpServlet{
         request.getRequestDispatcher("/404.jsp").forward(request, response);
     }
     
+    protected void renderLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
+    }
+    
     protected String getType (HttpServletRequest request) {
         String actionType = request.getParameter("actionType");
         if (actionType == null) {

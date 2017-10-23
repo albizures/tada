@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
             request.getParameter("email"),
             request.getParameter("password")
         );
-
+        
         if (user.isValid()) {
             HttpSession session = request.getSession();
             session.setAttribute("idUser", user.getIdUser());

@@ -50,6 +50,9 @@
                                 <a class="navbar-item is-capitalized" href="/profile">
                                     ${sessionScope.firstName} ${sessionScope.lastName}
                                 </a>
+                                <a class="navbar-item is-capitalized" href="/logout">
+                                    Logout
+                                </a>
                             </c:when>
                             <c:otherwise>
                                 <a class="navbar-item is-capitalized" href="/login">
