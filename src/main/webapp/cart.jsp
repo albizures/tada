@@ -6,6 +6,8 @@
 <tag:layout>
     <jsp:body>
         your cart
+        <form method="POST" action="/cart">
+            <input type="hidden" name="action" value="checkout">
         <table class="table">
             <thead>
                 <th>Article</th>
@@ -26,5 +28,8 @@
                 </c:forEach>
             </tbody>
         </table>
+        <br>
+        <button type="submit" class="button" id="checkout-cart">Checkout</button>
+        </form>
     </jsp:body>
 </tag:layout>

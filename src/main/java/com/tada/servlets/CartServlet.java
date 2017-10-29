@@ -22,10 +22,10 @@ public class CartServlet extends HttpServletWrapper {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(!super.isValidSession(request)){
-            super.renderLogin(request, response);
-            return;
-        }
+//        if(!super.isValidSession(request)){
+//            super.renderLogin(request, response);
+//            return;
+//        }
         HttpSession session = request.getSession();
         List<OrderList> cartList = (List<OrderList>) session.getAttribute("cartList");
         request.setAttribute("cartList", cartList);
@@ -52,6 +52,12 @@ public class CartServlet extends HttpServletWrapper {
                 System.out.println(request.getParameter("action"));
                 cartList.remove(Integer.parseInt(request.getParameter("index")));
                 request.setAttribute("cartList", cartList);
+            } else if(action.toLowerCase().equals("checkout")) {
+                if(!super.isValidSession(request)){
+                    super.renderLogin(request, response);
+                } else {
+                    response.getWriter().print("tengo sesion y voy a comprar");
+                }
             }
         } catch(IOException ex){
                 Logger.getLogger(CartServlet.class.getName()).log(Level.SEVERE, null, ex);
