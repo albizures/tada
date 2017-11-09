@@ -9,11 +9,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.tada.beans.CartItem;
+import com.tada.dao.CardDAO;
 import java.math.BigDecimal;
 
 @WebServlet(name = "Cart", urlPatterns = {"/cart"})
@@ -37,6 +37,7 @@ public class CartServlet extends HttpServletWrapper {
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
         CartItem item;
+        CardDAO dao = new CardDAO();
         List<CartItem> cartList = (List<CartItem>) session.getAttribute("cartList");
         if(cartList == null){
             cartList = new ArrayList<>();
@@ -56,7 +57,9 @@ public class CartServlet extends HttpServletWrapper {
                 if(!super.isValidSession(request)){
                     super.renderLogin(request, response);
                 } else {
-                    response.getWriter().print("tengo sesion y voy a comprar");
+                    request.setAttribute("cartListPayment", cartList);
+                    request.setAttribute("cards", dao.findByUser(Integer.parseInt(session.getAttribute("idUser").toString())));
+                    request.getRequestDispatcher("/checkout.jsp").forward(request, response);
                 }
             }
         } catch(IOException ex){

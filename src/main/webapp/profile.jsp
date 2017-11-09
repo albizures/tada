@@ -5,5 +5,6 @@
 <tag:layout>
     <jsp:body>
         profile
+        <a href="cards">Cards</a>
     </jsp:body>
 </tag:layout>
