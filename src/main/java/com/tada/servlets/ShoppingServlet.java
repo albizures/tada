@@ -17,7 +17,6 @@ public class ShoppingServlet extends HttpServlet {
             throws ServletException, IOException {
         String name = "";
         request.setAttribute("products", productDAO.findAll());
-        System.out.println("HAHAHAHAHAHAHAHAHAHAHAHAHAHA3");
         request.getRequestDispatcher("/shopping-store.jsp").forward(request, response);
     }
 

@@ -111,9 +111,6 @@ public class ProductDAO implements DAOInterface<Product> {
         List<Product> list = new ArrayList<>();
         try {
             list = qr.query(conn, sql_select, handler);
-            for (Product product : list) {
-                System.out.println(product.toString());
-            }
         } catch (SQLException ex) {
             System.out.println(ex.getCause());
             System.out.println(ex.getMessage());

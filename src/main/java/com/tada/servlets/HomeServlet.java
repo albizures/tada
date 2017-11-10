@@ -15,7 +15,6 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("products", productDAO.findAll());
-        System.out.println("HAHAHAHAHAHAHAHAHAHAHAHAHAHA" + request.getRequestURL());
         request.getRequestDispatcher("/home.jsp").forward(request, response);
     }
 }
