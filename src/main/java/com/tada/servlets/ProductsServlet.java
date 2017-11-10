@@ -30,6 +30,8 @@ public class ProductsServlet extends HttpServletWrapper {
         request.setAttribute("categories", categoryDAO.findAll());
         request.setAttribute("products", productDAO.findAll());
         
+        System.out.println("HAHAHAHAHAHAHAHAHAHAHAHAHAHA2");
+        
         String edit = request.getParameter("edit");
         if (edit != null) {
             Product product = productDAO.findById(Integer.parseInt(edit));

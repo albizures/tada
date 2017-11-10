@@ -1,23 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.tada.servlets;
 
 import com.tada.dao.ProductDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author erick
- */
 @WebServlet(name = "ShoppingServlet", urlPatterns = {"/shopping"})
 public class ShoppingServlet extends HttpServlet {
     ProductDAO productDAO = new ProductDAO();
@@ -25,11 +16,8 @@ public class ShoppingServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = "";
-        //if(request.getParameter("name") == null) {
-            //request.setAttribute("products", productDAO.findByCriteria(request.getParameter("name")));
-        //} else {
-            request.setAttribute("products", productDAO.findAll());
-        //}
+        request.setAttribute("products", productDAO.findAll());
+        System.out.println("HAHAHAHAHAHAHAHAHAHAHAHAHAHA3");
         request.getRequestDispatcher("/shopping-store.jsp").forward(request, response);
     }
 

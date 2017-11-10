@@ -43,7 +43,7 @@
                     </div>
                     <div class="navbar-end">
                         <a class="navbar-item" href="/cart">
-                            Cart
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         </a>
                         <c:choose>
                             <c:when test="${sessionScope.idUser > -1}">
