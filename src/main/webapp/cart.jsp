@@ -6,7 +6,7 @@
 <tag:layout>
     <jsp:body>
         your cart
-        <form method="POST" action="/cart">
+        <form method="POST" action="cart">
             <input type="hidden" name="action" value="checkout">
         <table class="table">
             <thead>

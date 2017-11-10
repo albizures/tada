@@ -7,7 +7,7 @@ public class Card {
     private int month;
     private int year;
     private int id_user;
-
+    public Card(){}
     public Card(int id_card, String name, int number, int month, int year, int id_user) {
         this.id_card = id_card;
         this.name = name;
